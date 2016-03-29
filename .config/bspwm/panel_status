@@ -1,0 +1,31 @@
+#!/bin/bash
+
+clock()
+{
+	TIME=$(date "+%a %b %d")
+	echo -n $TIME
+}
+
+day()
+{
+	DAY=$(date "+%R")
+	echo -n $DAY
+}
+
+battery()
+{
+	BATPERC=$(acpi --battery | cut -d, -f2)
+	echo -n $BATPERC
+}
+
+#desktop()
+#{
+	# bspc subscribe report
+	# see:
+	# man bspc: report format
+#}
+
+while true; do
+	echo "%{r}$(battery)% | $(day) | $(clock)"
+	sleep 30
+done
