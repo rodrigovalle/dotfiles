@@ -20,11 +20,11 @@ XF86MonBrightness{Up,Down}
 
 # volume control
 XF86Audio{Raise,Lower}Volume
-	amixer set Master 2%{+,-}
+	amixer sset Master -M 2%{+,-}
 
 # mute
 XF86AudioMute
-	amixer set Master toggle
+	amixer sset Master toggle
 
 #
 #

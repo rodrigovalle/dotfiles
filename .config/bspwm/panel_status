@@ -12,10 +12,17 @@ day()
 	echo -n $DAY
 }
 
+volume()
+{
+	MUTE=$
+	VOLUME=$(amixer sget -M Master PCH | egrep -o "[0-9]+%")
+	echo -n "$VOLUME%%"
+}
+
 battery()
 {
-	BATPERC=$(acpi --battery | cut -d, -f2)
-	echo -n $BATPERC
+	BATPERC=$(cat /sys/class/power_supply/BAT0/capacity)
+	echo -n "$BATPERC%%"
 }
 
 #desktop()
@@ -25,7 +32,10 @@ battery()
 	# man bspc: report format
 #}
 
+# replace this loop with some event-based system to save battery
+# see inotify api to detect changes in battery level
+# volume change events can be triggered directly by the volume key
 while true; do
-	echo "%{r}$(battery)% | $(day) | $(clock)"
-	sleep 30
+	echo "%{r}bat: $(battery) | vol: $(volume) | $(day)  $(clock)"
+	sleep 2
 done
