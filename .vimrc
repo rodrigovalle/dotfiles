@@ -59,7 +59,7 @@ colorscheme gotham
 " MISC CONFIGURATION
 set number
 set textwidth=80
-set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:▸\ 
+set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:\|\   "tab:»·,tab:▸\ 
 set noerrorbells
 set nowrap
 set hlsearch

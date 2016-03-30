@@ -14,7 +14,7 @@ day()
 
 volume()
 {
-	MUTE=$
+	#MUTE=$(amixer sget -M Master PCH
 	VOLUME=$(amixer sget -M Master PCH | egrep -o "[0-9]+%")
 	echo -n "$VOLUME%%"
 }
