@@ -16,7 +16,7 @@ volume()
 {
 	#MUTE=$(amixer sget -M Master PCH
 	VOLUME=$(amixer sget -M Master PCH | egrep -o "[0-9]+%")
-	echo -n "$VOLUME%%"
+	echo -n "$VOLUME%"
 }
 
 battery()
@@ -37,5 +37,5 @@ battery()
 # volume change events can be triggered directly by the volume key
 while true; do
 	echo "%{r}bat: $(battery) | vol: $(volume) | $(day)  $(clock)"
-	sleep 2
+	sleep 5
 done

@@ -12,5 +12,5 @@ else
 	xrandr --output $AUX --off
 fi
 
-sleep 1
+sleep 0.01
 ~/.fehbg
