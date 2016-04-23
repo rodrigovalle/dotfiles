@@ -14,8 +14,8 @@ test -r $d && eval "$(dircolors $d)"
 
 ## ALIASES
 alias vi="vim"
+alias diff="colordiff"
 alias ls="ls -p --group-directories-first --color=always"
 alias chrome="chromium &>/dev/null &"
 alias ff="firefox &>/dev/null &"
 alias xup="xrdb ~/.Xresources"
-

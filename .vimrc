@@ -21,7 +21,6 @@ Plug 'octol/vim-cpp-enhanced-highlight' " better syntax highlighting for C/C++
 
 " utilities
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 
@@ -37,6 +36,7 @@ call plug#end()
 nmap <F8> :TagbarToggle<CR>
 
 " STATUS LINE
+" bug with some powerline symbols not showing, possibly related to font size in urxvt/gvim
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = airline#section#create(['%p%%  ', g:airline_symbols.linenr, ' %l:', ' %c '])
@@ -45,12 +45,15 @@ let g:airline#extensions#whitespace#enabled = 0
 " GUI
 if has('gui_running')
 	" GUI colors
-	set guifont=Inconsolata\ for\ Powerline\ 11
+	set guifont=Inconsolata\ for\ Powerline\ 7
+	"set guifont=Inconsolata\-g\ for\ Powerline\ 6
 	set encoding=utf8
 	set guioptions-=m
 	set guioptions-=T
 	set guioptions-=r
 	set guioptions-=L
+	set linespace=1
+	set guiheadroom=0
 endif
 
 " COLORSCHEME
@@ -59,11 +62,10 @@ colorscheme gotham
 " MISC CONFIGURATION
 set number
 set textwidth=80
-set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:\|\   "tab:»·,tab:▸\ 
+set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:\|\ 
 set noerrorbells
 set nowrap
 set hlsearch
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-
