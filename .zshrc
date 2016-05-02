@@ -19,3 +19,5 @@ alias ls="ls -p --group-directories-first --color=always"
 alias chrome="chromium &>/dev/null &"
 alias ff="firefox &>/dev/null &"
 alias xup="xrdb ~/.Xresources"
+
+alias zork="frotz $HOME/games/zork1/DATA/ZORK1.DAT"

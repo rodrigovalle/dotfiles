@@ -8,6 +8,7 @@
 
 set nocompatible
 filetype plugin indent on
+syntax enable
 
 " VIM-PLUG
 " See https://github.com/junegunn/vim-plug for more details
@@ -19,18 +20,22 @@ call plug#begin('~/.vim/plugged')
 "Plug 'justinmk/vim-syntax-extra'       " better syntax highlighting for C
 Plug 'octol/vim-cpp-enhanced-highlight' " better syntax highlighting for C/C++
 
+" color schemes
+Plug 'whatyouhide/vim-gotham'
+Plug 'junegunn/seoul256.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'altercation/vim-colors-solarized'
+
 " utilities
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 
-" color schemes
-Plug 'whatyouhide/vim-gotham'
-Plug 'junegunn/seoul256.vim'
-Plug 'NLKNguyen/papercolor-theme'
-
 " Add plugins to &runtimepath
 call plug#end()
+
+" COLORSCHEME
+colorscheme gotham
 
 " TAGBAR
 nmap <F8> :TagbarToggle<CR>
@@ -42,11 +47,11 @@ let g:airline_powerline_fonts = 1
 let g:airline_section_z = airline#section#create(['%p%%  ', g:airline_symbols.linenr, ' %l:', ' %c '])
 let g:airline#extensions#whitespace#enabled = 0
 
+colorscheme gotham
+
 " GUI
 if has('gui_running')
-	" GUI colors
-	set guifont=Inconsolata\ for\ Powerline\ 7
-	"set guifont=Inconsolata\-g\ for\ Powerline\ 6
+	set guifont=Inconsolata\ for\ Powerline\ 12
 	set encoding=utf8
 	set guioptions-=m
 	set guioptions-=T
@@ -56,13 +61,10 @@ if has('gui_running')
 	set guiheadroom=0
 endif
 
-" COLORSCHEME
-colorscheme gotham
-
 " MISC CONFIGURATION
 set number
 set textwidth=80
-set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:\|\ 
+"set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:\|\ 
 set noerrorbells
 set nowrap
 set hlsearch
