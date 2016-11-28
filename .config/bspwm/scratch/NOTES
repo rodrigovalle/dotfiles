@@ -1,0 +1,37 @@
+maybe consider coroutines that run forever but continuously update the bar and
+await:
+  a) the bar's successful update
+  b) asyncio.sleep()
+
+it can maybe await with an option like "flush=<bool>" which lets the bar known
+whether to rerender
+
+================================================================================
+new idea:
+user defines a simple generator (probably in an infinite loop)
+async function loops through the generator
+
+async def coro(generator):
+    for event in generator():
+        await bar.refresh(event, push=False)
+        away asyncio.sleep(5)
+
+def bar.refresh(event, push=False):
+    if push:
+        bar_update_and_print()
+        return
+    await asyncio.sleep(5)
+
+user must give a decorator the sleep time or 0 to push out update without
+waiting
+
+================================================================================
+Python panel design considerations:
+ - based on async/await syntax
+ - easily create blocks that are updated at periodic intervals
+ - easily create blocks that are updated asynchronously as new data is avaiable
+
+Ideas:
+ - write a custom eventloop
+ - wrap normal generators using function decorators
+ - asynchronous iterator classes for every block (aka anext, aiter) (overkill?)

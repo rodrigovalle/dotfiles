@@ -12,11 +12,20 @@ day()
 	echo -n $DAY
 }
 
+# TODO: fix this up a bit, maybe switch all of this over to python, it's nicer
 volume()
 {
-	#MUTE=$(amixer sget -M Master PCH
-	VOLUME=$(amixer sget -M Master PCH | egrep -o "[0-9]+%")
-	echo -n "$VOLUME%"
+    INFO=$(amixer sget -M Master PCH)
+    $(echo $INFO | egrep -q "\[on\]" || return 1)
+    MUTE=$?
+
+    if [ $MUTE = 1 ]; then
+        VOLUME="MM"
+    else
+        VOLUME=$(echo $INFO | egrep -o "[0-9]+%")
+    fi
+
+    echo -n "$VOLUME%"
 }
 
 battery()
@@ -25,7 +34,7 @@ battery()
 	echo -n "$BATPERC%%"
 }
 
-#desktop()
+#desktops()
 #{
 	# bspc subscribe report
 	# see:
@@ -37,5 +46,5 @@ battery()
 # volume change events can be triggered directly by the volume key
 while true; do
 	echo "%{r}bat: $(battery) | vol: $(volume) | $(day)  $(clock)"
-	sleep 5
+    sleep 5
 done
