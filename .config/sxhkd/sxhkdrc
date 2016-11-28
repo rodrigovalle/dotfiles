@@ -4,11 +4,19 @@
 
 # terminal emulator
 super + Return
-	urxvt
+    urxvt
+
+# popup terminal
+F12
+    ~/scripts/quake-terminal.sh
 
 # program launcher
 super + space
-	dmenu_run -b -fn 'Inconsolata\-g-10'
+	rofi -show run -font 'Inconsolata-g 12'
+
+# window switcher
+alt + Tab
+	rofi -show window
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -16,7 +24,10 @@ super + Escape
 
 # brightness
 XF86MonBrightness{Up,Down}
-	light -{A,U} 7.0
+	light -{A,U} 5.0
+
+shift + XF86MonBrightness{Up,Down}
+    light -{A,U} 1.0
 
 # volume control
 XF86Audio{Raise,Lower}Volume
@@ -26,7 +37,6 @@ XF86Audio{Raise,Lower}Volume
 XF86AudioMute
 	amixer sset Master toggle
 
-#
 #
 # bspwm hotkeys
 #
@@ -71,6 +81,16 @@ super + ctrl + {x,y,z}
 super + {h,j,k,l}
 	DIR={west,south,north,east}; \
 	bspc node -f $DIR || bspc monitor -f $DIR
+
+    # desktop switching on edge ("wraparound")
+    #|| \
+	#case $DIR in \
+	#    west) \
+	#        C_DIR=prev ;;\
+	#    east) \
+	#        C_DIR=next ;;\
+	#esac; \
+	#bspc desktop -f $C_DIR
 
 # swap the node in the given direction (doesn't work across monitors)
 super + shift + {h,j,k,l}
