@@ -1,10 +1,7 @@
 " ~/.vimrc
 " Author: Rodrigo Valle
 "
-" Tips:
 " hi yes, welcome to my vimrc
-" inspiration was drawn from:
-" - https://github.com/execb5/.vim ; http://imgur.com/a/HJtVn
 
 set nocompatible
 filetype plugin indent on
@@ -18,56 +15,78 @@ call plug#begin('~/.vim/plugged')
 
 " syntax highlighting
 "Plug 'justinmk/vim-syntax-extra'       " better syntax highlighting for C
-Plug 'octol/vim-cpp-enhanced-highlight' " better syntax highlighting for C/C++
+"Plug 'octol/vim-cpp-enhanced-highlight' " better syntax highlighting for C/C++
 
-" color schemes
+" colorschemes
 Plug 'whatyouhide/vim-gotham'
 Plug 'junegunn/seoul256.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'altercation/vim-colors-solarized'
+Plug 'joshdick/onedark.vim'
+Plug 'joshdick/airline-onedark.vim'
+Plug 'morhetz/gruvbox'
+Plug 'w0ng/vim-hybrid'
+Plug 'cdmedia/itg_flat_vim'
+Plug 'chriskempson/base16-vim'
 
 " utilities
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'sheerun/vim-polyglot'
+Plug 'junegunn/goyo.vim'
+Plug 'lervag/vimtex'
 
 " Add plugins to &runtimepath
 call plug#end()
 
 " COLORSCHEME
-colorscheme gotham
+colorscheme gruvbox
+hi Normal ctermbg=NONE
+  "required for transparency
 
 " TAGBAR
 nmap <F8> :TagbarToggle<CR>
 
 " STATUS LINE
 " bug with some powerline symbols not showing, possibly related to font size in urxvt/gvim
+set encoding=utf-8
 set laststatus=2
 let g:airline_powerline_fonts = 1
 let g:airline_section_z = airline#section#create(['%p%%  ', g:airline_symbols.linenr, ' %l:', ' %c '])
-let g:airline#extensions#whitespace#enabled = 0
+let g:airline_extensions = ['branch', 'tagbar']
 
-colorscheme gotham
+" VIMTEX
+let maplocalleader = ','
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_view_general_viewer = 'zathura'
 
 " GUI
 if has('gui_running')
-	set guifont=Inconsolata\ for\ Powerline\ 12
-	set encoding=utf8
+    set guifont=SourceCodePro\ 6.5
 	set guioptions-=m
 	set guioptions-=T
 	set guioptions-=r
 	set guioptions-=L
 	set linespace=1
 	set guiheadroom=0
+
+	"colorscheme PaperColor
+	"set background=light
+    colorscheme gruvbox
 endif
 
 " MISC CONFIGURATION
 set number
-set textwidth=80
+set textwidth=100
+set colorcolumn=81
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 "set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:\|\ 
 set noerrorbells
 set nowrap
 set hlsearch
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set scrolloff=10
