@@ -15,6 +15,7 @@ if [ -f $sysmodmap ]; then
     xmodmap $sysmodmap
 fi
 
+# this isn't executing in its entirety on startup for some reason...
 if [ -f "$userresources" ]; then
     xrdb -merge "$userresources"
 fi
@@ -36,5 +37,6 @@ fi
 export ALSA_CARD=PCH
 
 # start wm
+export BSPWM_SOCKET=/tmp/bspwm_socket
 sxhkd &
 exec bspwm
