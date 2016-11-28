@@ -12,6 +12,12 @@ alias pyclean='
     \) -ls -delete
 '
 
+# sudo -- so we can use sudo with aliased commands
+alias sudo='sudo '
+
+# dotfiles
+alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+
 # applications
 alias chromium='chromium --force-device-scale-factor=1 &>/dev/null &'
 alias chrome='chromium'
@@ -21,9 +27,6 @@ alias pycharm='wmname LG3D; pycharm'
 alias android-studio='wmname LG3D; android-studio'
 alias code='code --force-device-scale-factor=0.5'
 alias gitk='gitkraken --force-device-scale-factor=0.5'
-
-# sudo -- so we can use sudo with aliased commands
-alias sudo='sudo '
 
 # pacman
 alias pac='pacman -S'                                    #install
