@@ -23,25 +23,37 @@ test -r $d && eval "$(dircolors $d)"
 bindkey -v
 export KEYTIMEOUT=1
 
-# cli prompt with vcs_info
+# cli prompt with git status using the vcs_info zsh package
 # see:
 # - http://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
 # - http://zsh.sourceforge.net/Doc/Release/User-Contributions.html
-PROJECT_DIR="$HOME/projects"
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' disable-patterns "^($PROJECT_DIR)"
-zstyle ':vcs_info:git*' formats "%s:%r@%b "
-precmd() { vcs_info }
+# - http://arjanvandergaag.nl/blog/customize-zsh-prompt-with-vcs-info.html
 
-#PROMPT='%{$fg_bold[blue]%}%C/%{$reset_color%} %# '
-NEWLINE=$'\n'
-PROMPT='%{$fg_bold[blue]%}%1d%{$reset_color%} ${vcs_info_msg_0_}%# '
+DEFAULT_PROMPT='%{$fg_bold[blue]%}%1d%{$reset_color%}'
 ZLE_RPROMPT_INDENT=0
+
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git*' formats "%{$fg[yellow]%}@%b"
+
+precmd() {
+    vcs_info
+    if [[ -z ${vcs_info_msg_0_} ]]; then
+        # not in a git repository
+        PROMPT="$DEFAULT_PROMPT %# "
+    else
+        # inside a git repo, add status info
+        PROMPT="$DEFAULT_PROMPT %# "
+        RPROMPT="${vcs_info_msg_0_}"
+    fi
+}
 
 # pretty standard prompt
 #PROMPT='%n@%m:%~%# '  # a fairly standard prompt
 #RPROMPT='[%?]'
-
+#
+# prompt that only shows the current directory
+#PROMPT='%{$fg_bold[blue]%}%C/%{$reset_color%} %# '
+#
 # torch
 #. /home/rodrigov/torch/install/bin/torch-activate
 #. /home/rodrigov/torch-cl/install/bin/torch-activate
