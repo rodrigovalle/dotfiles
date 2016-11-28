@@ -1,9 +1,33 @@
 ! vim: set filetype=xdefaults :
 
-urxvt.font: xft:Inconsolata\ for\ Powerline:pixelsize=15
-urxvt.letterSpace: -1
-urxvt.scrollBar: false
-*.cursorBlink: true
+! internet resources
+! wiki.gentoo.org/wiki/Rxvt-unicode
+! wiki.archlinux.org/index.php/rxvt-unicode
+
+URxvt.font:           xft:SourceCodePro:style=regular:pixelsize=16
+URxvt.boldFont:       xft:SourceCodePro:style=semibold:pixelsize=16
+URxvt.italicFont:     xft:SourceCodePro:style=italic:pixelsize=16
+URxvt.bolditalicFont: xft:SourceCodePro:style=semibold italic:pixelsize=16
+
+URxvt.letterSpace: -2
+URxvt.scrollBar: false
+URxvt.cursorBlink: true
+URxvt.highlightSelection: true
+URxvt.internalBorder: 10
+
+! keyboard-select, url-select
+URxvt.perl-ext-common: default,matcher,clipboard
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+URxvt.matcher.button: 1
+
+! transparency
+!URxvt*transparent: true
+!URxvt*shading: 15
+!URxvt*blurRadius: 15
+
+
+! also look at infinality on archwiki
 
 Xft.dpi: 168
 !Xft.dpi: 157 actual screen dpi ?
@@ -14,42 +38,10 @@ Xft.dpi: 168
 ! From archwiki on font config
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault
+Xft.hinting: true
 Xft.hintstyle: hintslight
-Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
 
-! also look at infinality on archwiki
-
-! get link support in here somehow
-! wiki.gentoo.org/wiki/Rxvt-unicode
-
-! gotham colorscheme
-*.foreground:   #98d1ce
-*.background:   #0a0f14
-*.cursorColor:  #98d1ce
-
-!black
-*.color0:       #0a0f14
-*.color8:       #10151b
-!red
-*.color1:       #c33027
-*.color9:       #d26939
-!green
-*.color2:       #26a98b
-*.color10:      #081f2d
-!yellow
-*.color3:       #edb54b
-*.color11:      #245361
-!blue
-*.color4:       #195465
-*.color12:      #093748
-!magenta
-*.color5:       #4e5165
-*.color13:      #888ba5
-!cyan
-*.color6:       #33859d
-*.color14:      #599caa
-!white
-*.color7:       #98d1ce
-*.color15:      #d3ebe9
+! pick a colorscheme
+#include ".Xcolorschemes/gruvbox-dark"
