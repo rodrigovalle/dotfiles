@@ -1,10 +1,14 @@
 # general
 alias vi='vim'
+alias ls='LC_COLLATE=C ls --color=always \
+                          --sort=extension \
+                          --indicator-style=slash \
+                          --group-directories-first'
+alias lsa='ls -lhA'
 alias diff='colordiff'
 alias grep='grep --color'
-alias ls='LC_COLLATE=C ls -p --group-directories-first --color=always'
-alias lsa='ls -lA'
 alias xup='xrdb ~/.Xresources'
+alias ocaml='rlwrap ocaml'
 alias pyclean='
     find . \(                       \
         -name "*.pyc" -type f -o    \
@@ -42,3 +46,6 @@ alias paclf='pacman -Ql'                                 #list files
 # games
 alias zork='(cd $HOME/games/zork1; frotz DATA/ZORK1.DAT)'
 alias katamari'(cd $HOME/games/katamari; python main.py)'
+
+# shrug
+alias shrug='echo "¯\_(ツ)_/¯" | xsel -p'

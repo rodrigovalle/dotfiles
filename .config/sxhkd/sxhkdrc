@@ -12,10 +12,10 @@ F12
 
 # program launcher
 super + space
-	rofi -show run -font 'Inconsolata-g 12'
+	rofi -show run
 
 # window switcher
-alt + Tab
+super + Tab
 	rofi -show window
 
 # make sxhkd reload its configuration files:
@@ -60,6 +60,10 @@ super + y
 # swap the current node and the biggest node
 super + g
 	bspc node -s biggest
+
+# rotate windows on the current desktop
+super + r
+    bspc node @focused:/ -R 90
 
 #
 # state/flags

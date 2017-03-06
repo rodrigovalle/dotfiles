@@ -1,0 +1,11 @@
+#!/bin/bash
+# Shows a list of all desktops on all monitors
+
+LAP="eDP1"
+AUX="DP1"
+
+echo "$LAP: $(bspc query -D -m $LAP --names | tr '\n' ' ')"
+
+if [ $(bspc query -M | wc -l) -eq 2 ]; then
+    echo "$AUX: $(bspc query -D -m $AUX --names | tr '\n' ' ')"
+fi

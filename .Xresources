@@ -13,7 +13,7 @@ URxvt.letterSpace: -2
 URxvt.scrollBar: false
 URxvt.cursorBlink: true
 URxvt.highlightSelection: true
-URxvt.internalBorder: 10
+URxvt.internalBorder: 30
 
 ! keyboard-select, url-select
 URxvt.perl-ext-common: default,matcher,clipboard
@@ -29,18 +29,20 @@ URxvt.matcher.button: 1
 
 ! also look at infinality on archwiki
 
-Xft.dpi: 168
+!Xft.dpi: 192 retina-screen dpi
+!Xft.dpi: 168 seems to work well
 !Xft.dpi: 157 actual screen dpi ?
 !Xft.dpi: 144 is nearest multiple of 96
 !Xft.dpi: 168 is next multiple of 96
-!Xft.dpi: 97
+!Xft.dpi: 96 traditional dpi
+Xft.dpi: 157
 
 ! From archwiki on font config
-Xft.autohint: 0
-Xft.lcdfilter: lcddefault
+Xft.autohint: false
+Xft.antialias: true
 Xft.hinting: true
-Xft.hintstyle: hintslight
-Xft.antialias: 1
+Xft.hintstyle: hintmedium
+Xft.lcdfilter: lcddefault
 Xft.rgba: rgb
 
 ! pick a colorscheme

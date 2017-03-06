@@ -1,0 +1,13 @@
+#!/bin/bash
+# Resets BSPWM desktops to their appropriate state in
+# single monitor mode.
+
+LAP="eDP1"
+
+if [ $(bspc query -M | wc -l) -eq 1 ]; then
+    bspc monitor $LAP -o I II III IV V VI VII VIII IX X
+    echo "$LAP: $(bspc query -D -m $LAP --names | tr '\n' ' ')"
+else
+    echo "only works in single monitor mode"
+    exit 1
+fi

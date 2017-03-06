@@ -1,0 +1,23 @@
+Dotfiles
+----------------------------
+https://developer.atlassian.com/blog/2016/02/best-way-to-store-dotfiles-git-bare-repo/
+
+
+Fonts
+----------------------------
+look at /etc/X11/xinitrc.d/xft-settings.sh for why ui/text is so tiny on startup
+
+
+Wifi
+----------------------------
+if you have problems connecting to wifi, try:
+  $ sudo ip link set wlp2s0 down
+  $ sudo wifi-menu
+
+also, from archlinux forums:
+  "For me the problem was that netctl-ifplugd@eth0.service had control of the
+   interface, which is why it would constantly switch it to UP.
+   My solution was:
+     $ systemctl disable netctl-ifplugd@eth0.service
+   After that netcl start worked just fine. Of course this will impact auto
+   profile switching."

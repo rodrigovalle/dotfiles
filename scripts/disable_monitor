@@ -1,0 +1,19 @@
+#!/bin/bash
+# note: see sister script 'enable_monitor.sh' for more details
+
+LAP="eDP1"
+AUX="DP1"
+
+# send desktops 6-10 to the primary laptop monitor, leaving the auxiliary
+# monitor with only an inaccessible dummy desktop
+for i in {6..10}; do
+    bspc desktop "^$i" --to-monitor $LAP
+done
+
+sleep 0.5  # sleep to mitigate a bspwm coredump (investigate later)
+xrandr --output $AUX --off
+
+echo "$LAP: $(bspc query -D -m $LAP --names | tr '\n' ' ')"
+
+sleep 0.01
+~/.fehbg

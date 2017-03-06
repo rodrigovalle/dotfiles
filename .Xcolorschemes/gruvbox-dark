@@ -6,11 +6,10 @@
 ! Last Modified: 6 Sep 2014
 ! -----------------------------------------------------------------------------
 
-! hard contrast: *background: #282828
-*background: #282828
-!*background: #1d2021
-
 ! soft contrast: *background: #32302f
+! hard contrast: *background: #1d2021
+*background: #282828
+
 *foreground: #ebdbb2
 
 ! Black + DarkGrey
