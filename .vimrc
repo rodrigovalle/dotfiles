@@ -14,7 +14,6 @@ call plug#begin('~/.vim/plugged')
 
 " syntax highlighting
 Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'wlangstroth/vim-racket'
 "Plug 'justinmk/vim-syntax-extra'        " better syntax highlighting for C
 "Plug 'octol/vim-cpp-enhanced-highlight' " better syntax highlighting for C/C++
 
@@ -33,14 +32,17 @@ Plug 'chriskempson/base16-vim'
 " utilities
 Plug 'majutsushi/tagbar' ", { 'on': 'TagbarToggle' }
 Plug 'tpope/vim-fugitive'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/goyo.vim'
 Plug 'lervag/vimtex'
 Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'w0rp/ale'
+Plug 'Rip-Rip/clang_complete'
 "Plug 'scrooloose/syntastic'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -54,13 +56,13 @@ let g:gruvbox_bold=0
 let g:gruvbox_italic=0
 let g:gruvbox_underline=0
 let g:gruvbox_undercurl=1
-let g:gruvbox_contrast_dark="medium"
-let g:gruvbox_contrast_light="medium"
-let g:gruvbox_hls_cursor="orange"
-let g:gruvbox_number_column="bg2"
-let g:gruvbox_sign_column="bg0"
-let g:gruvbox_color_column="bg1"
-let g:gruvbox_vert_split="bg2"
+let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_contrast_light='medium'
+let g:gruvbox_hls_cursor='orange'
+let g:gruvbox_number_column='bg2'
+let g:gruvbox_sign_column='bg0'
+let g:gruvbox_color_column='bg1'
+let g:gruvbox_vert_split='bg2'
 let g:gruvbox_italicize_comments=0
 let g:gruvbox_italicize_strings=0
 let g:gruvbox_italicize_strings=0
@@ -117,15 +119,42 @@ set noshowmode
 "let g:airline_extensions = ['branch', 'tagbar']
 
 
+" OMNICOMPLETE ---------------------------------------------------------------
+set omnifunc=syntaxcomplete#Complete
+set conceallevel=2
+set concealcursor=vin
+let g:clang_snippets=1
+let g:clang_conceal_snippets=1
+let g:clang_snippets_engine='clang_complete'
+
+" Complete options (disable preview scratch window)
+set completeopt=menu,menuone
+set pumheight=20
+
+"let g:clang_close_preview=1
+
+
+" ALE ------------------------------------------------------------------------
+let g:ale_cpp_clangtidy_executable='vagrant ssh -- clang-tidy'
+
+let g:ale_cpp_clangtidy_checks=[
+\ '*',
+\ '-llvm-header-guard',
+\ '-google-runtime-references',
+\ '-readability-implicit-bool-cast',
+\ '-google-readability-todo'
+\]
+let g:ale_cpp_clangtidy_options='-std=c++11'
+let g:ale_python_pylint_options='--disable=C0103'
+
+
 " GOYO -----------------------------------------------------------------------
 let g:goyo_linenr = 1
 function! s:goyo_enter()
-  set nolist
   hi NonText guifg=#282828
 endfunction
 
 function! s:goyo_leave()
-  set list
   hi NonText guifg=#504945
   " goyo screws with the status line format for some reason
   hi StatusLine   cterm=none gui=none
@@ -139,7 +168,7 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 " PANDOC/INDENTLINE ----------------------------------------------------------
 "disable annoying conceal thing
 let g:pandoc#syntax#conceal#use = 0
-let g:indentLine_setConceal = 0
+"let g:indentLine_setConceal = 0
 
 
 " TAGBAR ---------------------------------------------------------------------
@@ -154,7 +183,7 @@ let g:vimtex_view_general_viewer = 'zathura'
 
 " GUI ------------------------------------------------------------------------
 if has('gui_running')
-  set guifont=Droid\ Sans\ Mono\ 7
+  set guifont=Droid\ Sans\ Mono\ 9
   set guioptions-=m
   set guioptions-=T
   set guioptions-=r
@@ -163,23 +192,45 @@ if has('gui_running')
   set guiheadroom=0
 
   " start Goyo
-  autocmd VimEnter * Goyo
+  "autocmd VimEnter * Goyo
 endif
+
+
+" HOTKEYS --------------------------------------------------------------------
+" Allow saving of files with sudo when I forget to start vim with sudo
+cmap w!! w !sudo sponge %
 
 
 " MISC CONFIGURATION ---------------------------------------------------------
 set number
-"set colorcolumn=81
+set colorcolumn=81
 set expandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 "set list lcs=trail:·,precedes:«,extends:»,eol:¬,tab:\|\ 
-set list lcs=precedes:«,extends:»,eol:¬,tab:¦\ 
+"set list lcs=precedes:«,extends:»,eol:¬,tab:¦\ 
 set noerrorbells
 set hlsearch
 set nowrap
 set scrolloff=5
+"set cursorline
+set showcmd   " show command in bottom bar
+set wildmenu  " visual autocomplete
+set lazyredraw
+set showmatch " highlight matching [{()}]
 
 set textwidth=80
 set formatoptions=nb1croqlt
+
+" https://dougblack.io/words/a-good-vimrc.html
+" searching
+set incsearch " search as characters are entered
+set hlsearch  " highlight matches
+
+" folding
+set foldenable " enable folding
+set foldlevelstart=10 " open most folds by default
+
+set foldnestmax=10 " 10 nested fold max
+set foldmethod=indent " fold based on indent level
