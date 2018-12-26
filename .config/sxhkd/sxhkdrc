@@ -2,9 +2,15 @@
 # wm independent hotkeys
 #
 
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
 # terminal emulator
+# st has truecolor but
+# urxvt doesn't break on update :<
 super + Return
-    urxvt
+    st
 
 # popup terminal
 F12
@@ -17,10 +23,6 @@ super + space
 # window switcher
 super + Tab
 	rofi -show window
-
-# make sxhkd reload its configuration files:
-super + Escape
-	pkill -USR1 -x sxhkd
 
 # brightness
 XF86MonBrightness{Up,Down}
@@ -70,8 +72,12 @@ super + r
 #
 
 # set the window state
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+# super + {t,shift+t,s,f}
+#     bspc node -t {tiled,floating,pseudo_tiled,fullscreen}
+
+# toggle fullscreen
+super + f
+    bspc node -t \~fullscreen
 
 # set the node flags
 super + ctrl + {x,y,z}
@@ -160,7 +166,11 @@ super + alt + shift + {h,j,k,l}
 
 # move a floating window
 super + {Left,Down,Up,Right}
-	xdo move {-x -20,-y +20,-y -20,-x +20}
+	xdotool getactivewindow windowmove --relative -- {-20 0, 0 20, 0 -20, 20 0}
+
+# resize a floating window
+super + shift + {Left,Down,Up,Right}
+    bspc node -z bottom_right {-20 0, 0 20, 0 -20, 20 0}
 
 #
 # pointer focus/move/resize

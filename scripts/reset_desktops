@@ -2,7 +2,7 @@
 # Resets BSPWM desktops to their appropriate state in
 # single monitor mode.
 
-LAP="eDP1"
+LAP=${1:-'eDP1'}
 
 if [ $(bspc query -M | wc -l) -eq 1 ]; then
     bspc monitor $LAP --reset-desktops I II III IV V VI VII VIII IX X

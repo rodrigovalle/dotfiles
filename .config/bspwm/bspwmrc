@@ -1,26 +1,26 @@
 #!/bin/sh
 
 LAP="eDP1"
-AUX="DP1"
-xrandr --output $LAP --auto --primary --output $AUX --off
 
 #~/.config/bspwm/minimal_panel.py | lemonbar -p -g x20 -F "#FFF"&
 ~/.fehbg &
 $HOME/.config/polybar/launch.sh &
+# disable dunst to save battery
+#dunst &
 
 # enables compositing (kills battery)
-#compton --daemon \
-#        --backend glx \
-#        --vsync none \
-#        --unredir-if-possible \
-#        --paint-on-overlay \
-#        --fade-delta=10 \
-#        --fade-in-step=0.1 \
-#        --fade-out-step=0.1 \
-#        --glx-no-stencil --glx-no-rebind-pixmap --glx-swap-method buffer-age
+compton --daemon \
+        --backend glx \
+        --vsync none \
+        --unredir-if-possible \
+        --paint-on-overlay \
+        --fade-delta=5 \
+        --fade-in-step=0.15 \
+        --fade-out-step=0.15 \
+        --glx-no-stencil --glx-no-rebind-pixmap --glx-swap-method buffer-age
 
 bspc config border_width                3
-bspc config window_gap                  35
+bspc config window_gap                  10
 
 #bspc config top_padding                 5
 #bspc config bottom_padding              5
@@ -41,18 +41,18 @@ bspc config gapless_monocle             true
 bspc config honor_size_hints            false
 bspc config click_to_focus              true
 bspc config remove_unplugged_monitors   true
+bspc config remove_disabled_monitors    true
 
 # ~/scripts/monitor_setup.sh expects the desktops in a certain state
 bspc monitor $LAP -d I II III IV V VI VII VIII IX X
 
-bspc rule -a URxvt:quake-term \
-    monitor=focused desktop=focused state=floating \
-    border=off sticky=on focus=on center=on
 bspc rule -a Zathura state=tiled
 bspc rule -a emacs state=tiled
+#bspc rule -a URxvt:quake-term \
+#    monitor=focused desktop=focused state=floating \
+#    border=off sticky=on focus=on center=on
 #bspc rule -a Gimp desktop=^8 state=floating follow=on
 #bspc rule -a Chromium desktop=^2
 #bspc rule -a mplayer2 state=floating
 #bspc rule -a Kupfer.py focus=on
 #bspc rule -a Screenkey manage=off
-#bspc rule -a Gvim center=on

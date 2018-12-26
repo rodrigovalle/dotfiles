@@ -4,10 +4,12 @@
 ! wiki.gentoo.org/wiki/Rxvt-unicode
 ! wiki.archlinux.org/index.php/rxvt-unicode
 
-URxvt.font:           xft:SourceCodePro:style=regular:pixelsize=16
-URxvt.boldFont:       xft:SourceCodePro:style=semibold:pixelsize=16
-URxvt.italicFont:     xft:SourceCodePro:style=italic:pixelsize=16
-URxvt.bolditalicFont: xft:SourceCodePro:style=semibold italic:pixelsize=16
+! URxvt.font:           xft:Firacode:style=Retina:pixelsize=16
+! URxvt.boldFont:       xft:Firacode:style=Bold:pixelsize=16
+! URxvt.italicFont:     xft:Firacode:style=Italic:pixelsize=16
+! URxvt.bolditalicFont: xft:Firacode:style=Bold,Italic:pixelsize=16
+URxvt.font:           xft:SF\ Mono:style=Regular:pixelsize=16:lcdfilter=lcdlight
+
 
 URxvt.letterSpace: -2
 URxvt.scrollBar: false
@@ -36,7 +38,7 @@ URxvt.matcher.button: 1
 !Xft.dpi: 144 is nearest multiple of 96
 !Xft.dpi: 168 is next multiple of 96
 !Xft.dpi: 96 traditional dpi
-Xft.dpi: 120
+!Xft.dpi: 96
 
 ! From archwiki on font config
 !Xft.autohint: false

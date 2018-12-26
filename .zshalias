@@ -1,12 +1,22 @@
-# general
+# vim
 alias vi='vim'
+alias vimw='viw'
+function viw() {
+    st zsh -c "vim $@; $SHELL" </dev/null &>/dev/null &
+    disown %%
+}
+
+# general
 alias ls='LC_COLLATE=C ls --color=always \
                           --sort=extension \
                           --indicator-style=slash \
                           --group-directories-first'
 alias lsa='ls -lhA'
+alias dup='st &; disown %%'
 alias diff='colordiff'
+alias less='less -R'
 alias grep='grep --color'
+alias open='xdg-open'
 alias xup='xrdb ~/.Xresources'
 alias ocaml='rlwrap ocaml'
 alias pyclean='
@@ -27,10 +37,38 @@ alias chromium='chromium --force-device-scale-factor=1 &>/dev/null &'
 alias chrome='chromium'
 alias ff='firefox &>/dev/null &'
 alias zathura='zathura --fork'
-alias pycharm='wmname LG3D; pycharm'
-alias android-studio='wmname LG3D; android-studio'
+#alias pycharm='wmname LG3D; pycharm'
+#alias idea='wmname LG3D; idea.sh'
+#alias android-studio='wmname LG3D; android-studio'
 alias code='code --force-device-scale-factor=0.5'
 alias gitk='gitkraken --force-device-scale-factor=0.5'
+
+# github:
+# create a new github repo with the name given as the first argument
+# prompts user for password
+function githubinit {
+    curl -u 'rodrigovalle' https://api.github.com/user/repos \
+         -d "{\"name\": \"$1\"}" -s | \
+         python -c \
+             "import sys, json; "`
+            `"j=json.load(sys.stdin); "`
+            `"errs=j.get('errors',[]); "`
+            `"print(*[e['message'] for e in errs],sep='\n'); "`
+            `"sys.exit(not not errs);"
+
+    if [[ -d '.git' && $? -eq 0 ]]; then
+         printf "Set origin and sync repo in current directory to github [y/n]? "
+         read -q choice
+         printf "\n"
+         case $choice in
+             y ) git remote remove origin
+                 git remote add origin "https://github.com/rodrigovalle/$1.git"
+                 git remote -v  # verify remote URL
+                 git push origin master ;;
+             n ) return ;;
+         esac
+    fi
+}
 
 # pacman
 alias pac='pacman -S'                                    #install
@@ -48,4 +86,12 @@ alias zork='(cd $HOME/games/zork1; frotz DATA/ZORK1.DAT)'
 alias katamari'(cd $HOME/games/katamari; python main.py)'
 
 # shrug
-alias shrug='echo "¯\_(ツ)_/¯" | xsel -p'
+alias shrug='echo "¯\_(ツ)_/¯" | xsel -b'
+
+# pomodoro timer
+alias start-timer='(sleep 1500 && notify-send --urgency=critical "break time") &; disown %%'
+
+# copy default file from ~/defaults
+function cpdef {
+    cp "$HOME/defaults/$1" $2
+}

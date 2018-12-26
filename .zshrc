@@ -27,6 +27,9 @@ ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=yellow'
 # http://zsh.sourceforge.net/Guide/zshguide05.html#l139
 ZSH_HIGHLIGHT_PATTERNS+=('$[a-zA-Z_]##' 'fg=cyan')
 
+# use z for quick cd prediction
+source /usr/lib/z.sh
+
 # set aliases
 source ~/.zshalias
 
@@ -45,21 +48,15 @@ export KEYTIMEOUT=1
 # - http://arjanvandergaag.nl/blog/customize-zsh-prompt-with-vcs-info.html
 
 #PROMPT='%{$fg_bold[blue]%}%1d%{$reset_color%}%# '
-PROMPT='%F{white}>%f '
-ZLE_RPROMPT_INDENT=0
+PROMPT='%{%F{white}%f%}> '
+ZLE_RPROMPT_INDENT=1
 
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git*' formats "%{$fg[yellow]%}@%b"
+zstyle ':vcs_info:git*' formats "%{$fg[yellow]@%}%b%"
 
 precmd() {
     vcs_info
-    if [[ -z ${vcs_info_msg_0_} ]]; then
-        # not in a git repository
-        RPROMPT=""
-    else
-        # inside a git repo, add status info
-        RPROMPT="${vcs_info_msg_0_}"
-    fi
+    RPROMPT="${vcs_info_msg_0_}"
 }
 
 # pretty standard prompt

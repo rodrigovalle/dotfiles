@@ -36,13 +36,15 @@ Plug 'sheerun/vim-polyglot'
 Plug 'junegunn/goyo.vim'
 Plug 'lervag/vimtex'
 Plug 'airblade/vim-gitgutter'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'w0rp/ale'
 Plug 'Rip-Rip/clang_complete'
 "Plug 'scrooloose/syntastic'
 "Plug 'vim-airline/vim-airline'
 "Plug 'vim-airline/vim-airline-themes'
+Plug 'plasticboy/vim-markdown'
+Plug 'embear/vim-localvimrc'
 
 " Add plugins to &runtimepath
 call plug#end()
@@ -50,8 +52,10 @@ call plug#end()
 
 " COLORSCHEME ----------------------------------------------------------------
 " http://github.com/morhetz/gruvbox/wiki/Configuration
-set background=dark
+" :h xterm-true-color
+
 set termguicolors
+set background=dark
 let g:gruvbox_bold=0
 let g:gruvbox_italic=0
 let g:gruvbox_underline=0
@@ -74,10 +78,12 @@ let g:gruvbox_improved_strings=0
 let g:gruvbox_improved_warnings=0
 colorscheme gruvbox
 
+
 "set invisible chars to color bg2
 hi NonText      cterm=none gui=none guifg=#504945
 hi StatusLine   cterm=none gui=none guifg=#a89984 guibg=#282828
 hi StatusLineNC cterm=none gui=none guifg=#a89984 guibg=#282828
+hi LineNr       cterm=none gui=none guifg=#504945 guibg=#282828
 hi Cursor       guifg=#a89984
 hi iCursor      guifg=#a89984
 "hi vertsplit    ctermfg=238 ctermbg=235
@@ -121,7 +127,7 @@ set noshowmode
 
 " OMNICOMPLETE ---------------------------------------------------------------
 set omnifunc=syntaxcomplete#Complete
-set conceallevel=2
+"set conceallevel=2
 set concealcursor=vin
 let g:clang_snippets=1
 let g:clang_conceal_snippets=1
@@ -135,8 +141,6 @@ set pumheight=20
 
 
 " ALE ------------------------------------------------------------------------
-let g:ale_cpp_clangtidy_executable='vagrant ssh -- clang-tidy'
-
 let g:ale_cpp_clangtidy_checks=[
 \ '*',
 \ '-llvm-header-guard',
@@ -146,19 +150,24 @@ let g:ale_cpp_clangtidy_checks=[
 \]
 let g:ale_cpp_clangtidy_options='-std=c++11'
 let g:ale_python_pylint_options='--disable=C0103'
+let g:ale_linters = {
+  \ 'python': [ 'flake8' ],
+  \ }
 
 
 " GOYO -----------------------------------------------------------------------
 let g:goyo_linenr = 1
 function! s:goyo_enter()
-  hi NonText guifg=#282828
+  " remove non characters
+  set nolist
 endfunction
 
 function! s:goyo_leave()
-  hi NonText guifg=#504945
-  " goyo screws with the status line format for some reason
-  hi StatusLine   cterm=none gui=none
-  hi StatusLineNC cterm=none gui=none
+  " set list
+  " goyo screws with the status line/line numbers for some reason
+  hi StatusLine   cterm=none gui=none guifg=#a89984 guibg=#282828
+  hi StatusLineNC cterm=none gui=none guifg=#a89984 guibg=#282828
+  hi LineNr       cterm=none gui=none guifg=#504945 guibg=#282828
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -179,11 +188,17 @@ nmap <F8> :TagbarToggle<CR>
 let maplocalleader = ','
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_view_general_viewer = 'zathura'
+let g:polyglot_disabled = ['latex']
+
+
+" LOCALVIMRC  ----------------------------------------------------------------
+let g:localvimrc_persistent = 2
 
 
 " GUI ------------------------------------------------------------------------
 if has('gui_running')
-  set guifont=Droid\ Sans\ Mono\ 9
+  "set guifont=SF\ Mono\ 12
+  set guifont=Iosevka\ 14
   set guioptions-=m
   set guioptions-=T
   set guioptions-=r
@@ -192,7 +207,7 @@ if has('gui_running')
   set guiheadroom=0
 
   " start Goyo
-  "autocmd VimEnter * Goyo
+  autocmd VimEnter * Goyo
 endif
 
 

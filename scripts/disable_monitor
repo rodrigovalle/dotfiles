@@ -2,7 +2,7 @@
 # note: see sister script 'enable_monitor.sh' for more details
 
 LAP="eDP1"
-AUX="DP1"
+AUX="HDMI1"
 
 # send desktops 6-10 to the primary laptop monitor, leaving the auxiliary
 # monitor with only an inaccessible dummy desktop

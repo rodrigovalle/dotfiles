@@ -11,7 +11,7 @@ look at /etc/X11/xinitrc.d/xft-settings.sh for why ui/text is so tiny on startup
 Wifi
 ----------------------------
 if you have problems connecting to wifi, try:
-  $ sudo ip link set wlp2s0 down
+  $ sudo ip link set (dev?) wlp2s0 down
   $ sudo wifi-menu
 
 also, from archlinux forums:
